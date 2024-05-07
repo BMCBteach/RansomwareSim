@@ -1,0 +1,114 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="jquery.js"></script>
+    <title>Ransomware Simulation</title>
+</head>
+
+<body onload="typewriter();">
+    <br><br>
+    <h1>LISTEN UP! This is an Important Message:</h1>
+        <div class="terminal" >
+            <div class="terminal__text" id="typedtext"></div>
+        </div>
+        <div class="terminal" id="t2">
+            <div id="container">
+                <div id="readout"><br>
+                    <span id="status">Running... "GOT_YOU.exe"</span>
+                    <h1 id="percentage"></h1><div id="things">encrypting: /system/files</div><br>
+                </div> 
+                <div id="loadingContainer">
+                    <div id="loadingProgress">
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+      
+<script>
+    
+    // Custom Typewriter Animation
+    
+    var aText = [
+      "<span class='terminal__text__span'>Hey, it's your teacher.</span>",
+      "<span class='terminal__text__span'>I'm your not so friendly neighborhood hacker.</span>", 
+      "<span class='terminal__text__span'>Guess what? I'm encrypting your files!</span>",
+      "<span class='terminal__text__span'>Say goodbye to your access, your marks, everything....</span>",
+      "<span class='terminal__text__span'>You're getting a BIG FAT ZERO!</span>",
+      "<span class='terminal__text__span'>But don't worry, I can decrypt them...see I'm nice</span>",
+      "<span class='terminal__text__span'>for only €500, cash only.</span>",
+      "<span class='terminal__text__span'>Meet me in the tech room....with the CASH!</span>",
+      "<span class='terminal__text__span'>Maybe we can be friends... haha, just kidding.</span>"
+    ];
+    
+    var iSpeed = 50; 
+    var iIndex = 0; 
+    var iArrLength = aText[0].length; 
+    var iScrollAt = 20; 
+     
+    var iTextPos = 0; 
+    var sContents = ''; 
+    var iRow; 
+ 
+    function typewriter()
+    {
+    sContents =  ' ';
+    iRow = Math.max(0, iIndex-iScrollAt);
+    var destination = document.getElementById("typedtext");
+     
+    while ( iRow < iIndex ) {
+      sContents += aText[iRow++] + '<br />';
+     }
+     
+    destination.innerHTML = sContents + aText[iIndex].substring(0, iTextPos) + "_";
+    
+    if ( iTextPos++ == iArrLength ) {
+        iTextPos = 0;
+        iIndex++;
+        if ( iIndex != aText.length ) {
+            iArrLength = aText[iIndex].length;
+            setTimeout("typewriter()", 200);
+        }
+    } else {
+        setTimeout("typewriter()", iSpeed);
+     }
+    }
+    
+    
+    // Ransomware Simulation
+    
+    var barWidth = 0;
+    
+    function contLoading(){
+        if(barWidth>=10){document.getElementById("things").innerHTML= "encrypting: /system/BIOS";}
+        if(barWidth>=20){document.getElementById("things").innerHTML= "encrypting: /home/projects";}
+        if(barWidth>=30){document.getElementById("things").innerHTML= "encrypting: /.hidden/history";}
+        if(barWidth>=60){document.getElementById("things").innerHTML= "encrypting: /journal/I_Need_Help.txt";}
+        if(barWidth>=70){document.getElementById("things").innerHTML= "encrypting: /finance/Invoices/";}
+        if(barWidth>=90){document.getElementById("things").innerHTML= "encrypting: /journal/lost_In_Life";}
+      
+        if(barWidth>=100){
+            var loadBar = document.getElementById("loadingProgress");
+            var loadtran = document.getElementById("loadingProgress");
+            document.getElementById("status").innerHTML= "Complete";
+            document.getElementById("percentage").innerHTML= "100%";
+            document.getElementById("typedtext").innerHTML= "<p style=font-size:36px> <br>See you soon!<br><br><button onclick=clickFunction()>Email Me</button></p>";
+            document.getElementById("things").innerHTML= "encryption result: successful";
+            loadBar.style.width = 0;
+            loadtran.style.transition = "width 2s ease-in";
+        } else {
+            var percentage = document.getElementById("percentage");
+            var loadBar = document.getElementById("loadingProgress");
+            barWidth = barWidth+1; 
+            loadBar.style.width = barWidth+"%";
+            percentage.innerHTML= barWidth+"%";
+        }
+    }
+    
+    function clickFunction(){
+            var audio = new Audio('01gato.mp3');
+            audio.play();
+        }
+    
+    window.setInterval(contLoading, 400);
+</script>
+
